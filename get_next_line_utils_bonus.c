@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: apintus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 12:43:41 by apintus           #+#    #+#             */
-/*   Updated: 2023/12/06 16:46:13 by apintus          ###   ########.fr       */
+/*   Created: 2023/12/12 16:49:34 by apintus           #+#    #+#             */
+/*   Updated: 2023/12/14 12:25:09 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,34 @@ size_t	ft_strlen(char *str)
 	while (str[len] != '\0')
 		len++;
 	return (len);
+}
+
+char	*ft_strjoin(char *data, char *buffer)
+{
+	char	*join;
+	int		i;
+	int		j;
+
+	join = malloc(sizeof(char) * ((ft_strlen(data) + ft_strlen(buffer)) + 1));
+	if (join == NULL)
+		return (NULL);
+	i = 0;
+	while (data != NULL && data[i] != '\0')
+	{
+		join[i] = data[i];
+		i++;
+	}
+	if (data != NULL)
+		free(data);
+	j = 0;
+	while (buffer != NULL && buffer[j] != '\0')
+	{
+		join[i] = buffer[j];
+		i++;
+		j++;
+	}
+	join[i] = '\0';
+	return (join);
 }
 
 int	ft_strcontains(char *str, char c)
@@ -40,49 +68,4 @@ int	ft_strcontains(char *str, char c)
 		i++;
 	}
 	return (0);
-}
-
-char	*ft_strjoin(char *data, char *buff)
-{
-	char	*join;
-	size_t	len;
-	int		i;
-	int		j;
-
-	len = ft_strlen(data) + ft_strlen(buff);
-	join = malloc(sizeof(char) * (len + 1));
-	if (join == NULL)
-		return (NULL);
-	i = 0;
-	while (data != NULL && data[i] != '\0')
-	{
-		join[i] = data[i];
-		i++;
-	}
-	if (data != NULL)
-		free(data);
-	j = 0;
-	while (buff != NULL && buff[j] != '\0')
-		join[i++] = buff[j++];
-	join[len] = '\0';
-	return (join);
-}
-
-char	*ft_strcpy_nl(char *dest, char *src, int nl_stop)
-{
-	size_t	i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		if (nl_stop && src[i] == '\n')
-		{
-			i++;
-			break ;
-		}
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
 }

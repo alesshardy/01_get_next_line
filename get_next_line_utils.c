@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: apintus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 12:43:41 by apintus           #+#    #+#             */
-/*   Updated: 2023/12/06 15:48:30 by apintus          ###   ########.fr       */
+/*   Created: 2023/12/12 16:49:34 by apintus           #+#    #+#             */
+/*   Updated: 2023/12/14 15:42:12 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,13 @@ size_t	ft_strlen(char *str)
 	return (len);
 }
 
-int	ft_strcontains(char *str, char c)
-{
-	int	i;
-
-	if (str == NULL)
-		return (0);
-	if (c == '\0')
-		return (1);
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*ft_strjoin(char *data, char *buff)
+char	*ft_strjoin(char *data, char *buffer)
 {
 	char	*join;
-	size_t	len;
 	int		i;
 	int		j;
 
-	len = ft_strlen(data) + ft_strlen(buff);
-	join = malloc(sizeof(char) * (len + 1));
+	join = malloc(sizeof(char) * ((ft_strlen(data) + ft_strlen(buffer)) + 1));
 	if (join == NULL)
 		return (NULL);
 	i = 0;
@@ -62,27 +42,28 @@ char	*ft_strjoin(char *data, char *buff)
 	if (data != NULL)
 		free(data);
 	j = 0;
-	while (buff != NULL && buff[j] != '\0')
-		join[i++] = buff[j++];
-	join[len] = '\0';
+	while (buffer != NULL && buffer[j] != '\0')
+	{
+		join[i] = buffer[j];
+		i++;
+		j++;
+	}
+	join[i] = '\0';
 	return (join);
 }
 
-char	*ft_strcpy_nl(char *dest, char *src, int nl_stop)
+int	ft_strcontains(char *str, char c)
 {
-	size_t	i;
+	int	i;
 
+	if (str == NULL)
+		return (0);
 	i = 0;
-	while (src[i] != '\0')
+	while (str[i] != '\0')
 	{
-		dest[i] = src[i];
-		if (nl_stop && src[i] == '\n')
-		{
-			i++;
-			break ;
-		}
+		if (str[i] == c)
+			return (1);
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	return (0);
 }
